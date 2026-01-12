@@ -1,0 +1,505 @@
+/* ===== GLOBAL APP BACKGROUND ===== */
+.app-background {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #06353a 0%,
+    #06353a 50%,
+    #04262b 50%,
+    #04262b 100%
+  );
+}
+
+/* ===== BASE FONT ===== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ======================================================
+   DARK CARD (USED BY TICKET LIST, DASHBOARD, TABLES)
+====================================================== */
+.dark-card {
+  background: #1e293b; /* slate */
+  color: #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* ===== TABLE (DARK) ===== */
+.dark-card table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  color: #e5e7eb;
+}
+
+.dark-card th {
+  background: #334155;
+  color: #f8fafc;
+}
+
+.dark-card td {
+  background: #1e293b;
+}
+
+.dark-card th,
+.dark-card td {
+  border: 1px solid #475569;
+  padding: 8px;
+}
+
+/* ===== TABLE HOVER ===== */
+.dark-card table tbody tr:hover {
+  background-color: #334155;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* ======================================================
+   STATUS BADGES
+====================================================== */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.status-OPEN {
+  background-color: #38bdf8;
+}
+
+.status-IN_PROGRESS {
+  background-color: #facc15;
+}
+
+.status-RESOLVED {
+  background-color: #4ade80;
+}
+
+.status-CLOSED {
+  background-color: #cbd5f5;
+}
+
+
+
+/* ======================================================
+   CUSTOMER SUMMARY (TABLE – SOFT LIGHT, NOT WHITE)
+====================================================== */
+.customer-summary .summary-card {
+  background: #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.customer-summary table {
+  background-color: #e5e7eb;
+  color: #0f172a;
+}
+
+.customer-summary th {
+  background-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.customer-summary td {
+  background-color: #e5e7eb;
+}
+
+.customer-summary table,
+.customer-summary th,
+.customer-summary td {
+  border-color: #94a3b8;
+}
+
+/* ======================================================
+   ENGINEER SUMMARY (CARD GRID)
+====================================================== */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.summary-grid > div {
+  background: #1e293b;
+  color: #e5e7eb;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.summary-grid h3 {
+  margin-bottom: 14px;
+  color: #f8fafc;
+}
+
+.summary-grid p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+/* ======================================================
+   DASHBOARD CARDS
+====================================================== */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 22px;
+}
+
+.dashboard-card {
+  position: relative;
+  background: #1f2937;
+  color: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* ===== DASHBOARD ACCENT STRIP ===== */
+.dashboard-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  border-radius: 14px 14px 0 0;
+}
+
+/* ===== DASHBOARD TEXT ===== */
+.dashboard-card h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #cbd5f5;
+}
+
+.dashboard-card p {
+  margin-top: 14px;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+/* ===== DASHBOARD COLOR ACCENTS ===== */
+.card-total::before {
+  background: #64748b;
+}
+
+.card-open::before {
+  background: #3b82f6;
+}
+
+.card-progress::before {
+  background: #f59e0b;
+}
+
+.card-resolved::before {
+  background: #22c55e;
+}
+
+.card-sla-active::before {
+  background: #06b6d4;
+}
+
+.card-sla-breached::before {
+  background: #ef4444;
+}
+
+/* ===== GLOBAL APP BACKGROUND ===== */
+.app-background {
+  min-height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #06353a 0%,
+    #06353a 50%,
+    #04262b 50%,
+    #04262b 100%
+  );
+}
+
+/* ===== BASE FONT ===== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ======================================================
+   DARK CARD (USED BY TICKET LIST, DASHBOARD, TABLES)
+====================================================== */
+.dark-card {
+  background: #1e293b; /* slate */
+  color: #e5e7eb;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* ===== TABLE (DARK) ===== */
+.dark-card table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  color: #e5e7eb;
+}
+
+.dark-card th {
+  background: #334155;
+  color: #f8fafc;
+}
+
+.dark-card td {
+  background: #1e293b;
+}
+
+.dark-card th,
+.dark-card td {
+  border: 1px solid #475569;
+  padding: 8px;
+}
+
+/* ===== TABLE HOVER ===== */
+.dark-card table tbody tr:hover {
+  background-color: #334155;
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* ======================================================
+   STATUS BADGES
+====================================================== */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.status-OPEN {
+  background-color: #38bdf8;
+}
+
+.status-IN_PROGRESS {
+  background-color: #facc15;
+}
+
+.status-RESOLVED {
+  background-color: #4ade80;
+}
+
+.status-CLOSED {
+  background-color: #cbd5f5;
+}
+
+
+
+/* ======================================================
+   CUSTOMER SUMMARY (TABLE – SOFT LIGHT, NOT WHITE)
+====================================================== */
+.customer-summary .summary-card {
+  background: #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+}
+
+.customer-summary table {
+  background-color: #e5e7eb;
+  color: #0f172a;
+}
+
+.customer-summary th {
+  background-color: #cbd5e1;
+  color: #0f172a;
+}
+
+.customer-summary td {
+  background-color: #e5e7eb;
+}
+
+.customer-summary table,
+.customer-summary th,
+.customer-summary td {
+  border-color: #94a3b8;
+}
+
+/* ======================================================
+   ENGINEER SUMMARY (CARD GRID)
+====================================================== */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.summary-grid > div {
+  background: #1e293b;
+  color: #e5e7eb;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.summary-grid h3 {
+  margin-bottom: 14px;
+  color: #f8fafc;
+}
+
+.summary-grid p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+/* ======================================================
+   DASHBOARD CARDS
+====================================================== */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 22px;
+}
+
+.dashboard-card {
+  position: relative;
+  background: #1f2937;
+  color: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.45);
+}
+
+/* ===== DASHBOARD ACCENT STRIP ===== */
+.dashboard-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 100%;
+  border-radius: 14px 14px 0 0;
+}
+
+/* ===== DASHBOARD TEXT ===== */
+.dashboard-card h4 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 500;
+  color: #cbd5f5;
+}
+
+.dashboard-card p {
+  margin-top: 14px;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+/* ===== DASHBOARD COLOR ACCENTS ===== */
+.card-total::before {
+  background: #64748b;
+}
+
+.card-open::before {
+  background: #3b82f6;
+}
+
+.card-progress::before {
+  background: #f59e0b;
+}
+
+.card-resolved::before {
+  background: #22c55e;
+}
+
+.card-sla-active::before {
+  background: #06b6d4;
+}
+
+.card-sla-breached::before {
+  background: #ef4444;
+}
+.card-closed::before {
+  background: #94a3b8; /* soft slate / closed */
+}
+
+/* ======================================================
+   CREATE TICKET (CUSTOMER FORM FIX)
+====================================================== */
+
+.create-ticket {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.create-ticket label {
+  font-weight: 600;
+  color: #cbd5f5;
+  margin-top: 6px;
+}
+
+/* Bigger dropdown */
+.create-ticket select {
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 12px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid #475569;
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+/* Bigger description box */
+.create-ticket textarea {
+  width: 100%;
+  min-height: 160px; /* 🔥 THIS fixes small description */
+  padding: 12px;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid #475569;
+  background-color: #0f172a;
+  color: #f8fafc;
+  resize: vertical;
+}
+
+/* Button consistency */
+.create-ticket button {
+  margin-top: 14px;
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 8px;
+  background: #3b82f6;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.create-ticket button:hover {
+  background: #2563eb;
+}
+
+
