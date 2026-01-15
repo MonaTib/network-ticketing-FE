@@ -7,14 +7,15 @@ export default function AgentDashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCounts();
+    fetchDashboardData();
   }, []);
 
-  const fetchCounts = async () => {
+  const fetchDashboardData = async () => {
     try {
       const res = await api.get("/api/tickets");
       const all = Array.isArray(res.data) ? res.data : [];
 
+      // Logic derived from Status Card values
       setCounts({
         TOTAL: all.length,
         OPEN: all.filter(t => t.status === "OPEN").length,
@@ -27,53 +28,42 @@ export default function AgentDashboard() {
     }
   };
 
-  if (!counts) return <p>Loading dashboard...</p>;
+  if (!counts) return <p className="loading-text">Loading Dashboard...</p>;
 
   return (
-    <div className="dark-card">
-      <h2>Agent Dashboard 🧑‍💼</h2>
-
-      <div className="dashboard-cards" style={{ marginTop: 20 }}>
-        <Card
-          title="Total Tickets"
-          value={counts.TOTAL}
-          className="card-total"
-          onClick={() => navigate("/tickets")}
-        />
-        <Card
-          title="Open"
-          value={counts.OPEN}
-          className="card-open"
-          onClick={() => navigate("/tickets?status=OPEN")}
-        />
-        <Card
-          title="In Progress"
-          value={counts.IN_PROGRESS}
-          className="card-progress"
-          onClick={() => navigate("/tickets?status=IN_PROGRESS")}
-        />
-        <Card
-          title="Resolved"
-          value={counts.RESOLVED}
-          className="card-resolved"
-          onClick={() => navigate("/tickets?status=RESOLVED")}
-        />
-        <Card
-          title="Closed"
-          value={counts.CLOSED}
-          className="card-closed"
-          onClick={() => navigate("/tickets?status=CLOSED")}
-        />
+    <div className="app-container">
+      {/* Page Header */}
+      <div className="page-header">
+        <h1>Agent Dashboard 🧑‍💼</h1>
       </div>
-    </div>
-  );
-}
 
-function Card({ title, value, onClick, className }) {
-  return (
-    <div className={`dashboard-card ${className}`} onClick={onClick}>
-      <h4>{title}</h4>
-      <p>{value}</p>
+      {/* Main Status Cards Logic */}
+      <div className="dashboard-cards" style={{ marginTop: '20px' }}>
+        <div className="dashboard-card card-total" onClick={() => navigate("/tickets")}>
+          <h4>TOTAL TICKETS</h4>
+          <p>{counts.TOTAL}</p>
+        </div>
+        
+        <div className="dashboard-card card-open" onClick={() => navigate("/tickets?status=OPEN")}>
+          <h4>OPEN</h4>
+          <p>{counts.OPEN}</p>
+        </div>
+
+        <div className="dashboard-card card-progress" onClick={() => navigate("/tickets?status=IN_PROGRESS")}>
+          <h4>IN PROGRESS</h4>
+          <p>{counts.IN_PROGRESS}</p>
+        </div>
+
+        <div className="dashboard-card card-resolved" onClick={() => navigate("/tickets?status=RESOLVED")}>
+          <h4>RESOLVED</h4>
+          <p>{counts.RESOLVED}</p>
+        </div>
+
+        <div className="dashboard-card card-closed" onClick={() => navigate("/tickets?status=CLOSED")}>
+          <h4>CLOSED</h4>
+          <p>{counts.CLOSED}</p>
+        </div>
+      </div>
     </div>
   );
 }

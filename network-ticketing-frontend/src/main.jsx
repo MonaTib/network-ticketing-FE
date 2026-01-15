@@ -19,7 +19,6 @@ import AdminDashboard from "./pages/dashboard/AdminDashboard";
 import AgentDashboard from "./pages/dashboard/AgentDashboard";
 import EngineerDashboard from "./pages/dashboard/EngineerDashboard";
 import CustomerDashboard from "./pages/dashboard/CustomerDashboard";
-
 import "./styles/global.css";
 
 // ✅ ROLE BASED DASHBOARD SELECTOR
@@ -57,8 +56,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/tickets" element={<TicketList />} />
           <Route path="/admin/customers" element={<CustomerSummary />} />
           <Route path="/admin/engineers" element={<EngineerSummary />} />
-
+<Route path="/tickets/:ticketId/history" element={<TicketHistory />} />
           <Route path="/create-ticket" element={<CreateTicket />} />
+          
 
           <Route
             path="/tickets/:ticketId/history"

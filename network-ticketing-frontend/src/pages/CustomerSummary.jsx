@@ -33,7 +33,7 @@ export default function CustomerSummary() {
 
         if (!map[id]) {
           map[id] = {
-             id,
+            id,
             name,
             total: 0,
             open: 0,
@@ -59,20 +59,21 @@ export default function CustomerSummary() {
   };
 
   return (
-    <div className="summary-page">
+    <div className="summary-page dark-card">
       <h2>👥 Customer Summary</h2>
 
       {loading ? (
         <p>Loading...</p>
       ) : summary.length === 0 ? (
-        <p>No data</p>
+        <p>No data available</p>
       ) : (
         <div className="summary-card">
-          <table width="100%" border="1" cellPadding="8">
+          <table width="100%" cellPadding="8">
             <thead>
               <tr>
-                <th>Customer</th>
-                <th>Total</th>
+                {/* ✅ Added Customer Name column */}
+                <th style={{ padding: '0 15px', textAlign: 'left' }}>Customer</th>
+                <th>Total Tickets</th>
                 <th>Open</th>
                 <th>Resolved</th>
                 <th>SLA Breached</th>
@@ -82,14 +83,21 @@ export default function CustomerSummary() {
 
             <tbody>
               {summary.map(c => (
-                <tr key={c.name}>
-                  <td>{c.name}</td>
+                <tr key={c.id}>
+                  {/* ✅ Restored the Customer Name data */}
+                  <td style={{ padding: '0 15px', fontWeight: 'bold' }}>{c.name}</td>
                   <td>{c.total}</td>
                   <td>{c.open}</td>
                   <td>{c.resolved}</td>
-                  <td>{c.breached}</td>
+                  <td style={{ 
+                    color: c.breached > 0 ? '#ef4444' : 'inherit', 
+                    fontWeight: c.breached > 0 ? '600' : 'normal' 
+                  }}>
+                    {c.breached}
+                  </td>
                   <td>
                     <button
+                      className="btn-action"
                       onClick={() =>
                         navigate(`/tickets?customerId=${c.id}`)
                       }

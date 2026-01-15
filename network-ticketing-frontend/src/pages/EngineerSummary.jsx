@@ -9,7 +9,7 @@ export default function EngineerSummary() {
   const [summary, setSummary] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // 🔒 ADMIN ONLY
+  // 🔒 ADMIN ONLY check
   if (role !== "ADMIN") {
     return <Navigate to="/unauthorized" replace />;
   }
@@ -47,10 +47,8 @@ export default function EngineerSummary() {
         }
 
         map[id].assigned++;
-
         if (t.status === "IN_PROGRESS") map[id].inProgress++;
-        if (t.status === "RESOLVED" || t.status === "CLOSED")
-          map[id].resolved++;
+        if (t.status === "RESOLVED" || t.status === "CLOSED") map[id].resolved++;
         if (t.slaBreached) map[id].breached++;
       });
 
@@ -63,35 +61,33 @@ export default function EngineerSummary() {
   };
 
   return (
-    <div className="summary-page">
-      <h2>👨‍🔧 Engineer Summary</h2>
+    <div className="app-container">
+      <div className="page-header">
+        <h1>👨‍🔧 Engineer Workload Summary</h1>
+        <p>Real-time resource allocation and resolution performance.</p>
+      </div>
 
       {loading ? (
-        <p>Loading...</p>
+        <p className="loading-text">Analyzing Engineer Data...</p>
       ) : summary.length === 0 ? (
-        <p>No data</p>
+        <p className="loading-text">No active data available.</p>
       ) : (
         <div className="summary-grid">
           {summary.map(e => (
-            <div
-              key={e.id}
-              style={{
-                width: 260,
-                padding: 16,
-                border: "1px solid #ccc",
-                borderRadius: 8
-              }}
-            >
-              <h4>{e.name}</h4>
-              <p>Assigned: {e.assigned}</p>
-              <p>In Progress: {e.inProgress}</p>
-              <p>Resolved: {e.resolved}</p>
-              <p>SLA Breached: {e.breached}</p>
+            <div key={e.id} className="summary-card">
+              <h3>{e.name}</h3>
+              <div className="summary-stats">
+                <p>Assigned: <strong>{e.assigned}</strong></p>
+                <p>In Progress: <strong>{e.inProgress}</strong></p>
+                <p>Resolved: <strong>{e.resolved}</strong></p>
+                <p style={{ color: e.breached > 0 ? '#f87171' : '#94a3b8' }}>
+                  SLA Breached: <strong>{e.breached}</strong>
+                </p>
+              </div>
 
               <button
-                onClick={() =>
-                  navigate(`/tickets?engineerId=${e.id}`)
-                }
+                className="btn-action-sm"
+                onClick={() => navigate(`/tickets?engineerId=${e.id}`)}
               >
                 View Tickets
               </button>

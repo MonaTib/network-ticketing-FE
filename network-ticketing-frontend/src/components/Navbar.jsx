@@ -1,47 +1,54 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Navbar() {
-  const role = (localStorage.getItem("role") || "")
-    .replace("ROLE_", "")
-    .trim()
-    .toUpperCase();
-
   const navigate = useNavigate();
+  const location = useLocation();
+  const role = localStorage.getItem("role")?.toUpperCase();
 
-  const logout = () => {
-    localStorage.clear();
-    navigate("/");
-  };
+  const isActive = (path) => location.pathname === path ? "nav-btn active" : "nav-btn";
 
   return (
-    <div style={{ padding: 10, background: "#eee" }}>
-      <Link to="/dashboard">Dashboard</Link> {" | "}
-
-      {role === "CUSTOMER" && (
-        <>
-          <Link to="/create-ticket">Create Ticket</Link> {" | "}
-          <Link to="/tickets">My Tickets</Link> {" | "}
-        </>
-      )}
-
-      {(role === "ENGINEER" || role === "AGENT" || role === "ADMIN") && (
-        <>
-          <Link to="/tickets">View Tickets</Link> {" | "}
-        </>
-      )}
+    <nav className="enterprise-navbar">
+      <div className="nav-container">
+        <div className="nav-brand">SupportPortal ⚡</div>
+        
+        <div className="nav-group">
+          {/* Dashboard always first */}
+          <button onClick={() => navigate('/dashboard')} className={isActive('/dashboard')}>
+            Dashboard
+          </button>
 
 
-      {role === "ADMIN" && (
-  <>
-    {" | "}
-    <Link to="/admin/customers">Customer Summary</Link>
-    {" | "}
-    <Link to="/admin/engineers">Engineer Summary</Link>
-  </>
-)}
+           {role === "CUSTOMER" && (
+            <button onClick={() => navigate('/create-ticket')} className={isActive('/create-ticket')}>
+              Create Ticket
+            </button>
+          )}
 
+          {/* Tickets second */}
+          <button onClick={() => navigate('/tickets')} className={isActive('/tickets')}>
+            Tickets
+          </button>
 
-      <button onClick={logout}>Logout</button>
-    </div>
+         
+
+          {/* Admin Specific Links */}
+          {role === "ADMIN" && (
+            <>
+              <button onClick={() => navigate('/admin/customers')} className={isActive('/admin/customers')}>
+                Customers
+              </button>
+              <button onClick={() => navigate('/admin/engineers')} className={isActive('/admin/engineers')}>
+                Engineers
+              </button>
+            </>
+          )}
+        </div>
+
+        <button className="logout-pill" onClick={() => { localStorage.clear(); navigate('/'); }}>
+          Logout
+        </button>
+      </div>
+    </nav>
   );
 }
