@@ -20,7 +20,6 @@ export default function TicketList() {
   const [searchParams] = useSearchParams();
   const statusParam = searchParams.get("status");
   const customerIdParam = Number(searchParams.get("customerId"));
-  // ADDED: Get engineerId from the URL
   const engineerIdParam = Number(searchParams.get("engineerId"));
 
   const hideCustomerColumn = !!customerIdParam || role === "CUSTOMER";
@@ -36,7 +35,6 @@ export default function TicketList() {
       else if (role === "ENGINEER") data = data.filter(t => t.assignedEngineer?.id === userId);
       else if (role === "ADMIN" && customerIdParam) data = data.filter(t => t.customer?.id === customerIdParam);
       
-      // ADDED: Logic to filter by Engineer if engineerId is in the URL
       if (role === "ADMIN" && engineerIdParam) {
         data = data.filter(t => t.assignedEngineer?.id === engineerIdParam);
       }
@@ -51,7 +49,6 @@ export default function TicketList() {
       setTickets(data);
       checkFeedback(data);
     } catch (err) { console.error(err); } finally { setLoading(false); }
-    // ADDED: engineerIdParam to dependencies
   }, [role, userId, statusParam, customerIdParam, engineerIdParam]);
 
   const fetchEngineers = async () => {
@@ -80,27 +77,54 @@ export default function TicketList() {
   };
 
   const handleAutoAssign = async (ticketId, field, value) => {
-    const current = { 
-        ...(selections[ticketId] || { engineerId: '', priority: '', severity: '' }), 
-        [field]: value 
-    };
-    
-    setSelections(prev => ({ ...prev, [ticketId]: current }));
-
-    if (current.engineerId && current.priority && current.severity) {
-      try {
-        await api.put(`/api/tickets/${ticketId}/assign`, {
-          engineerId: Number(current.engineerId),
-          priority: current.priority,
-          severity: current.severity,
-          performedBy: userId
-        });
-        fetchTickets(); 
-      } catch (err) {
-        alert("Assignment failed");
-      }
-    }
+  const prev = selections[ticketId] || {
+    engineerId: "",
+    priority: "",
+    severity: ""
   };
+
+  const current = {
+    ...prev,
+    [field]: value
+  };
+
+  // ✅ update UI state
+  setSelections(prevSel => ({
+    ...prevSel,
+    [ticketId]: current
+  }));
+
+  // ✅ USE `current`, NOT `selections`
+  if (current.engineerId && current.priority && current.severity) {
+    try {
+      await api.put(`/api/tickets/${ticketId}/assign`, {
+        engineerId: Number(current.engineerId),
+        priority: current.priority,
+        severity: current.severity,
+        performedBy: userId
+      });
+
+      // optimistic update
+      setTickets(prev =>
+        prev.map(t =>
+          t.id === ticketId ? { ...t, status: "IN_PROGRESS" } : t
+        )
+      );
+
+      // clear local selection
+      setSelections(prevSel => {
+        const copy = { ...prevSel };
+        delete copy[ticketId];
+        return copy;
+      });
+
+      fetchTickets();
+    } catch {
+      alert("Assignment failed");
+    }
+  }
+};
+
 
   useEffect(() => {
     fetchTickets();
@@ -131,7 +155,6 @@ export default function TicketList() {
 
   return (
     <div className="dark-card">
-      {/* ADDED: Dynamic Header based on filter */}
       <h2>{engineerIdParam ? "Filtered Engineer Tickets 🎫" : "Ticket List 🎫"}</h2>
       <table>
         <thead>
